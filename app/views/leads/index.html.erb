@@ -1,0 +1,30 @@
+<table>
+  <tr>
+    <th>Organization</th>
+    <th>Lead Contact</th>
+    <th>Sales Contact</th>
+    <th>Potential Revenue</th>
+    <th>Probability</th>
+    <th>Status</th>
+    <th>Next follow up at</th>
+    <th></th>
+  </tr>
+  <% for lead in @leads %>
+    <tr>
+      <td><%= lead.organization %></td>
+      <td><%= lead.lead_contact %></td>
+      <td><%= lead.sales_contact %></td>
+      <td><%= number_to_currency(lead.potential_revenue_value, :unit => lead.potential_revenue_currency) %></td>
+      <td><%= number_to_percentage(lead.probability.to_i) %></td>
+      <td><%= lead.status_text %></td>
+      <td><%= l(lead.followup_at.to_date) %></td>
+      <td><%= link_to 'Edit', edit_lead_path(lead.id) %> | <%= link_to 'Delete', lead_path(lead.id), :method => :delete, :confirm => 'Are you sure?' %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to 'Create a new lead', new_lead_path %> |
+  <%= link_to 'Show tasks', tasks_path %> |
+  <%= link_to 'Logout', sessions_path, :method => :delete %>
+</p>
